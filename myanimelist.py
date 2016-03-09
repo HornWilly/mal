@@ -56,7 +56,7 @@ class MyAnimeList:
             raise RuntimeError("Request blocked by Incapsula protection")
 
         result = dict()
-        for raw_entry in ET.fromstring(r.text):
+        for raw_entry in ET.fromstring(r.text.encode('utf-8')):
             entry = dict((attr.tag, attr.text) for attr in raw_entry)
 
             if 'series_animedb_id' in entry:

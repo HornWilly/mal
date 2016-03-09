@@ -75,11 +75,11 @@ def find(regex):
         print(str(index) + ': ' + item['title'])
         print(' ' * padding + status + ' at ' + str(item['episode']) +
               '/' + str(item['total_episodes']) + ' episodes')
-        print()
+        print(' ')
 
 
 config = ConfigParser()
-config.read(os.path.expanduser('~/.myanimelist.ini'))
+config.read(os.path.expanduser('.myanimelist.ini'))
 
 mal = MyAnimeList(config['mal'])
 
