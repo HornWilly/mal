@@ -38,7 +38,7 @@ class MyAnimeList:
         if (r.status_code == 204):
             return []
 
-        elements = ET.fromstring(r.text)
+        elements = ET.fromstring(r.text.encode('utf-8'))
         return [dict((attr.tag, attr.text) for attr in el) for el in elements]
 
     def list(self, status='all', username=None):

@@ -12,6 +12,23 @@ from myanimelist import MyAnimeList
 signal.signal(signal.SIGINT, lambda x, y: sys.exit(0))
 today = datetime.date.today().strftime('%m%d%Y')
 
+def search(regex):
+    items = mal.search(regex)
+    if len(items) == 0:
+        print("No matches found.")
+        return
+
+    print("Matched " + str(len(items)) + " items:")
+
+    for index, item in enumerate(items):
+        if index == 0:
+            padding = 3
+        else:
+            padding = int(math.log10(index)) + 3
+
+        print(str(index) + ': ' + item['title'])
+        print(' ')
+
 
 def increment(regex):
     items = mal.find(regex)
@@ -88,9 +105,11 @@ args = sys.argv[1:]
 if len(args) > 1:
     if args[0] == 'inc':
         increment(args[1])
+    elif args[0] == 'search':
+        search(args[1])
 
 elif len(args) == 1:
-    find(args[0])
+        find(args[0])
 
 else:
     print("Usage: mal [command] regex")
