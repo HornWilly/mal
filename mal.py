@@ -26,7 +26,9 @@ def search(regex):
         else:
             padding = int(math.log10(index)) + 3
 
-        print(str(index) + ': ' + item['title'])
+        print(str(index) + ': ID ' + item['id'] + ' - TITLE ' + item['title'])
+        print(' ' * padding + 'TYPE ' + item['type'] + ' / START ' + item['start_date'] +
+              ' / END ' + item['end_date'])
         print(' ')
 
 
