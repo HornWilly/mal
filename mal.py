@@ -117,7 +117,7 @@ if len(args) > 1:
 	add(args[1])
 
 elif len(args) == 1:
-        find(" ".join(sys.argv[1:]))
+        find(args[0])
 
 else:
     print("Usage: mal [command] regex")
