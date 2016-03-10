@@ -70,9 +70,13 @@ def increment(regex):
         entry['status'] = MyAnimeList.status_codes['watching']
         entry['date_start'] = today
 
-    response = mal.update(item['id'], entry)
+    response = mal.send('update',item['id'], entry)
     if response != 200:
         print ("Failed with HTTP " + str(response))
+
+
+def add(item_id):
+    search(item_id)
 
 
 def find(regex):
@@ -109,9 +113,11 @@ if len(args) > 1:
         increment(args[1])
     elif args[0] == 'search':
         search(args[1])
+    elif args[0] == 'add':
+	add(args[1])
 
 elif len(args) == 1:
-        find(args[0])
+        find(" ".join(sys.argv[1:]))
 
 else:
     print("Usage: mal [command] regex")

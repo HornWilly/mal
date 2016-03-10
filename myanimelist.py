@@ -80,6 +80,23 @@ class MyAnimeList:
                 result.append(val)
         return result
 
+    def send(self, action, item_id, entry):
+        tree = ET.Element('entry')
+        for key, val in entry.items():
+            ET.SubElement(tree, key).text = str(val)
+
+        encoded = ET.tostring(tree).decode('utf-8')
+        xml_item = '<?xml version="1.0" encoding="UTF-8"?>' + encoded
+
+        payload = {'data': xml_item}
+        r = requests.post(
+            self.base_url + '/animelist/' + action + '/' + str(item_id) + '.xml',
+            data=payload,
+            auth=(self.username, self.password),
+            headers={'User-Agent': self.user_agent}
+        )
+        return r.status_code
+
     def update(self, item_id, entry):
         tree = ET.Element('entry')
         for key, val in entry.items():
@@ -91,6 +108,23 @@ class MyAnimeList:
         payload = {'data': xml_item}
         r = requests.post(
             self.base_url + '/animelist/update/' + str(item_id) + '.xml',
+            data=payload,
+            auth=(self.username, self.password),
+            headers={'User-Agent': self.user_agent}
+        )
+        return r.status_code
+
+    def add(self, item_id, entry):
+        tree = ET.Element('entry')
+        for key, val in entry.items():
+            ET.SubElement(tree, key).text = str(val)
+
+        encoded = ET.tostring(tree).decode('utf-8')
+        xml_item = '<?xml version="1.0" encoding="UTF-8"?>' + encoded
+
+        payload = {'data': xml_item}
+        r = requests.post(
+            self.base_url + '/animelist/add/' + str(item_id) + '.xml',
             data=payload,
             auth=(self.username, self.password),
             headers={'User-Agent': self.user_agent}
